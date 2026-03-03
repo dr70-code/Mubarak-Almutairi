@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8" />
+<meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>منصة الأحداث</title>
+<title>منصة الأحداث Ultra</title>
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Cairo',sans-serif}
@@ -55,28 +55,22 @@ transition:.3s}
 .card-content h3{margin-bottom:8px}
 .card-content p{opacity:.8;margin-bottom:10px}
 iframe{width:100%;height:230px;border-radius:12px;margin-top:10px}
+button.danger{background:#ff2d2d;margin-top:10px;color:#fff;padding:6px 12px;border:none;border-radius:8px;cursor:pointer}
 
-/* Modal */
+/* Modals */
 .modal{
 position:fixed;top:0;left:0;width:100%;height:100%;
-background:rgba(0,0,0,.85);
-display:none;justify-content:center;align-items:center;z-index:999}
+background:rgba(0,0,0,.85);display:none;
+justify-content:center;align-items:center;z-index:999}
 .modal-content{
 background:#1a1a2e;padding:35px;border-radius:20px;
 width:400px;max-height:90vh;overflow:auto;
 box-shadow:0 0 40px rgba(138,43,226,.5)}
 .modal-content h2{text-align:center;margin-bottom:20px;color:#caa6ff}
-input,textarea{
-width:100%;margin-bottom:12px;padding:10px;border-radius:10px;
-border:none;background:#2a2a40;color:#fff}
-button.submit{
-background:linear-gradient(90deg,#6a00ff,#9d4dff);
-border:none;padding:12px;width:100%;
-border-radius:10px;color:#fff;font-weight:700;cursor:pointer}
-button.danger{
-background:#ff2d2d;margin-top:10px}
+input,textarea{width:100%;margin-bottom:12px;padding:10px;border-radius:10px;border:none;background:#2a2a40;color:#fff}
+button.submit{background:linear-gradient(90deg,#6a00ff,#9d4dff);border:none;padding:12px;width:100%;border-radius:10px;color:#fff;font-weight:700;cursor:pointer}
 
-/* Sidebar Admin */
+/* Dashboard */
 .dashboard{
 position:fixed;top:0;right:-100%;width:420px;height:100%;
 background:#121220;box-shadow:-5px 0 30px rgba(138,43,226,.5);
@@ -88,19 +82,15 @@ transition:.4s;padding:30px;overflow:auto;z-index:998}
 </head>
 
 <body>
-
 <div class="alert-bar" id="alertBar"></div>
 <audio id="alertSound"></audio>
 
 <header>
-<div class="logo-box">
-<img id="logoImg" src="https://via.placeholder.com/100">
-</div>
+<div class="logo-box"><img id="logoImg" src="https://via.placeholder.com/100"></div>
 <button class="admin-btn" onclick="openLogin()">لوحة التحكم</button>
 </header>
 
 <div class="hero" id="heroSection"></div>
-
 <div class="container">
 <h2 class="section-title">📅 أحداث اليوم</h2>
 <div class="grid" id="todayEvents"></div>
@@ -113,7 +103,7 @@ transition:.4s;padding:30px;overflow:auto;z-index:998}
 <!-- Login Modal -->
 <div class="modal" id="loginModal">
 <div class="modal-content">
-<h2>🔐 إدخال الرمز السري</h2>
+<h2>🔐 إدخال الرمز السري ONER</h2>
 <input type="password" id="accessCode" placeholder="أدخل الرمز">
 <button class="submit" onclick="verifyCode()">دخول</button>
 </div>
@@ -121,7 +111,7 @@ transition:.4s;padding:30px;overflow:auto;z-index:998}
 
 <!-- Dashboard -->
 <div class="dashboard" id="dashboard">
-<h3>⚙️ لوحة التحكم</h3>
+<h3>⚙️ لوحة التحكم ONER</h3>
 
 <h4>➕ إضافة حدث</h4>
 <input type="text" id="title" placeholder="عنوان (إجباري)">
@@ -132,91 +122,84 @@ transition:.4s;padding:30px;overflow:auto;z-index:998}
 <button class="submit" onclick="addEvent()">إضافة الحدث</button>
 
 <hr style="margin:20px 0;border-color:#333">
+<h4>👥 إدارة الإداريين</h4>
+<input type="text" id="adminName" placeholder="اسم الإداري">
+<input type="password" id="adminPass" placeholder="رمز المرور الإداري">
+<button class="submit" onclick="addAdmin()">إضافة إداري</button>
+<button class="danger" onclick="removeAdmin()">طرد إداري</button>
 
+<hr style="margin:20px 0;border-color:#333">
 <h4>🚨 تحذير علوي</h4>
 <input type="text" id="alertText" placeholder="نص التحذير">
 <input type="file" id="alertAudio">
 <button class="submit" onclick="activateAlert()">تفعيل التحذير</button>
-<button class="submit danger" onclick="disableAlert()">إلغاء التحذير</button>
+<button class="danger" onclick="disableAlert()">إلغاء التحذير</button>
 
 <hr style="margin:20px 0;border-color:#333">
+<h4>💣 أكشن مزحة وهمي</h4>
+<button class="submit" onclick="fakeExplosion()">تفجير وهمي</button>
 
+<hr style="margin:20px 0;border-color:#333">
 <h4>🖼 تغيير الشعار</h4>
 <input type="file" id="logoUpload">
 <button class="submit" onclick="changeLogo()">تحديث الشعار</button>
 
 <button class="submit danger" onclick="closeDashboard()" style="margin-top:20px">إغلاق</button>
-<p class="small">الرمز الحالي: Dr3322</p>
+<p class="small">الرمز ONER: Dr3322</p>
 </div>
 
 <script>
+// ONER
 const ACCESS_CODE="Dr3322";
 let events=JSON.parse(localStorage.getItem("events")||"[]");
+let admins=JSON.parse(localStorage.getItem("admins")||"[]");
 let alertData=JSON.parse(localStorage.getItem("alertData")||"null");
 let logoData=localStorage.getItem("logoData");
-
 if(logoData)document.getElementById("logoImg").src=logoData;
 
-function openLogin(){
-document.getElementById("loginModal").style.display="flex";
-}
+// Login
+function openLogin(){document.getElementById("loginModal").style.display="flex";}
 function verifyCode(){
 if(document.getElementById("accessCode").value===ACCESS_CODE){
 document.getElementById("loginModal").style.display="none";
 document.getElementById("dashboard").classList.add("active");
 }else alert("رمز خاطئ");
 }
-function closeDashboard(){
-document.getElementById("dashboard").classList.remove("active");
-}
+function closeDashboard(){document.getElementById("dashboard").classList.remove("active");}
 
+// Events
 function addEvent(){
 const title=document.getElementById("title").value;
 if(!title)return alert("العنوان مطلوب");
-
 const reader=new FileReader();
 const file=document.getElementById("image").files[0];
-if(file){
-reader.onload=function(){
-saveEvent(reader.result);
+if(file){reader.onload=function(){saveEvent(reader.result)};reader.readAsDataURL(file);}else saveEvent("");
 }
-reader.readAsDataURL(file);
-}else{
-saveEvent("");
-}
-}
-
 function saveEvent(img){
 events.push({
-id:Date.now(),
-title:document.getElementById("title").value,
+id:Date.now(),title:document.getElementById("title").value,
 description:document.getElementById("description").value,
-image:img,
-stream:document.getElementById("stream").value,
-date:document.getElementById("date").value
-});
+image:img,stream:document.getElementById("stream").value,
+date:document.getElementById("date").value});
 localStorage.setItem("events",JSON.stringify(events));
-location.reload();
+loadEvents();
 }
 
+// Load
 function loadEvents(){
 const today=new Date().toISOString().split("T")[0];
 const hero=document.getElementById("heroSection");
 const todayDiv=document.getElementById("todayEvents");
 todayDiv.innerHTML="";
-
 events.filter(e=>e.date===today).forEach((e,i)=>{
-if(i===0){
-hero.innerHTML=`<img src="${e.image}"><div class="hero-content"><h1>${e.title}</h1><p>${e.description||""}</p></div>`;
-}else todayDiv.innerHTML+=createCard(e);
+if(i===0){hero.innerHTML=`<img src="${e.image}"><div class="hero-content"><h1>${e.title}</h1><p>${e.description||""}</p></div>`;}
+else todayDiv.innerHTML+=createCard(e);
 });
 }
 function loadPast(date){
 const pastDiv=document.getElementById("pastEvents");
 pastDiv.innerHTML="";
-events.filter(e=>e.date===date).forEach(e=>{
-pastDiv.innerHTML+=createCard(e);
-});
+events.filter(e=>e.date===date).forEach(e=>{pastDiv.innerHTML+=createCard(e);});
 }
 function createCard(e){
 return `<div class="card">
@@ -228,59 +211,26 @@ ${e.stream?`<iframe src="${e.stream}" allowfullscreen></iframe>`:""}
 <button class="danger" onclick="deleteEvent(${e.id})">حذف</button>
 </div></div>`;
 }
-function deleteEvent(id){
-events=events.filter(e=>e.id!==id);
-localStorage.setItem("events",JSON.stringify(events));
-location.reload();
-}
+function deleteEvent(id){events=events.filter(e=>e.id!==id);localStorage.setItem("events",JSON.stringify(events));loadEvents();}
 
-/* Alert */
+// Alert
 function activateAlert(){
 const text=document.getElementById("alertText").value;
 const audioFile=document.getElementById("alertAudio").files[0];
 if(!text)return alert("اكتب نص التحذير");
-if(audioFile){
-const reader=new FileReader();
-reader.onload=function(){
-alertData={text,color:"red",sound:reader.result};
-localStorage.setItem("alertData",JSON.stringify(alertData));
-showAlert();
-}
-reader.readAsDataURL(audioFile);
-}else{
-alertData={text,color:"red",sound:null};
-localStorage.setItem("alertData",JSON.stringify(alertData));
-showAlert();
-}
-}
-function showAlert(){
-if(!alertData)return;
-const bar=document.getElementById("alertBar");
-bar.style.background="red";
-bar.innerText=alertData.text;
-bar.style.display="block";
-if(alertData.sound){
-const audio=document.getElementById("alertSound");
-audio.src=alertData.sound;
-audio.play();
-}
-}
-function disableAlert(){
-localStorage.removeItem("alertData");
-document.getElementById("alertBar").style.display="none";
-}
+if(audioFile){const reader=new FileReader();reader.onload=function(){alertData={text,color:"red",sound:reader.result};localStorage.setItem("alertData",JSON.stringify(alertData));showAlert();};reader.readAsDataURL(audioFile);}else{alertData={text,color:"red",sound:null};localStorage.setItem("alertData",JSON.stringify(alertData));showAlert();}}
+function showAlert(){if(!alertData)return;const bar=document.getElementById("alertBar");bar.style.background="red";bar.innerText=alertData.text;bar.style.display="block";if(alertData.sound){const audio=document.getElementById("alertSound");audio.src=alertData.sound;audio.play();}}
+function disableAlert(){localStorage.removeItem("alertData");document.getElementById("alertBar").style.display="none";}
 
-/* Logo */
-function changeLogo(){
-const file=document.getElementById("logoUpload").files[0];
-if(!file)return;
-const reader=new FileReader();
-reader.onload=function(){
-localStorage.setItem("logoData",reader.result);
-document.getElementById("logoImg").src=reader.result;
-}
-reader.readAsDataURL(file);
-}
+// Logo
+function changeLogo(){const file=document.getElementById("logoUpload").files[0];if(!file)return;const reader=new FileReader();reader.onload=function(){localStorage.setItem("logoData",reader.result);document.getElementById("logoImg").src=reader.result;};reader.readAsDataURL(file);}
+
+// Admins
+function addAdmin(){const name=document.getElementById("adminName").value;const pass=document.getElementById("adminPass").value;if(!name||!pass)return alert("الاسم والرمز مطلوب");admins.push({name,pass});localStorage.setItem("admins",JSON.stringify(admins));alert("تم إضافة الإداري");document.getElementById("adminName").value="";document.getElementById("adminPass").value="";}
+function removeAdmin(){const name=document.getElementById("adminName").value;if(!name)return alert("اكتب اسم الإداري");admins=admins.filter(a=>a.name!==name);localStorage.setItem("admins",JSON.stringify(admins));alert("تم طرد الإداري");document.getElementById("adminName").value="";}
+
+// Fake explosion
+function fakeExplosion(){alert("💥 تفجير وهمي!");const audio=new Audio("https://www.soundjay.com/explosion/sounds/explosion-01.mp3");audio.play();}
 
 if(alertData)showAlert();
 loadEvents();
